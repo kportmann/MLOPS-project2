@@ -36,7 +36,7 @@ docker run --rm -e WANDB_API_KEY=... mlops-project2
 docker run --rm --env-file .env mlops-project2
 ```
 
-The container executes the baked-in command from the Dockerfile:
+The container executes the baked-in command from the Dockerfile: (these are the best Hyperparameters i found in Project1)
 ```
 uv run main.py --wandb_project MLOPS_Project2 --wandb_run_name Project1_Best_run_recreation_dockerfile \
   --max_epochs 3 --learning_rate 3e-5 --train_batch_size 64 --eval_batch_size 64 --weight_decay 0.0001 \
@@ -45,14 +45,19 @@ uv run main.py --wandb_project MLOPS_Project2 --wandb_run_name Project1_Best_run
 
 Override hyperparameters by appending a custom command:
 ```bash
-docker run --rm -e WANDB_API_KEY=... mlops-project2 \
-  uv run main.py --max_epochs 1 --train_batch_size 32
+docker run --rm -e WANDB_API_KEY=<key> mlops-project2 \
+  uv run main.py --wandb_project MLOPS_Project2 \
+  --wandb_run_name Project1_Best_run_recreation_codespaces \
+  --max_epochs 3 --learning_rate 3e-5 \
+  --train_batch_size 64 --eval_batch_size 64 \
+  --weight_decay 0.0001 --no-save_checkpoints
 ```
 
-## 4. Codespaces / Docker Playground
+## 4. Codespaces
 Clone the repo, run the same `docker build` and `docker run` commands. No code changes required.
 
 ## 5. Notes
-- PyTorch is installed with CPU runtimes. GPU usage requires rebuilding the image with CUDA-enabled wheels and running with `--gpus all` on a GPU host.
+- PyTorch 2.9.0 with CUDA 12 support is installed. It automatically falls back to CPU execution when no GPU is available. For GPU usage in Docker, run with `--gpus all` flag and ensure NVIDIA Container Toolkit is installed on the host.
 - Checkpoints are disabled by default (`--no-save_checkpoints`) to save space and time in containerized runs. Metrics are logged to W&B.
 - Artifacts (`logs/`, `wandb/`) stay on the host; they are excluded from the image by `.dockerignore`.
+- Docker Playground has insufficient disk space for this project. Use GitHub Codespaces instead.
