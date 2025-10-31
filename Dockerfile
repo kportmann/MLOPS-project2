@@ -21,4 +21,4 @@ RUN uv sync --frozen --no-install-project
 # Copy project
 COPY . .
 
-CMD ["uv", "run", "main.py", "--wandb_project", "MLOPS_Project2", "--wandb_run_name", "Project1_Best_run_recreation_dockerfile", "--max_epochs", "3", "--learning_rate", "3e-5", "--train_batch_size", "64", "--eval_batch_size", "64", "--weight_decay", "0.0001"]
+CMD ["uv", "run", "main.py", "--wandb_project", "MLOPS_Project2", "--wandb_run_name", "Project1_Best_run_recreation_dockerfile", "--max_epochs", "3", "--learning_rate", "3e-5", "--train_batch_size", "64", "--eval_batch_size", "64", "--weight_decay", "0.0001","--no-save_checkpoints"]
