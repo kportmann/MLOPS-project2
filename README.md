@@ -1,11 +1,10 @@
-# MLOPS Project 2 – Containerized GLUE Training
+# MLOPS Project 2
 
 Minimal instructions for anyone cloning this repository and reproducing the training run.
 
 ## Requirements
 - Docker (Desktop or CLI)
 - Weights & Biases account + API key (`WANDB_API_KEY`)
-- Optional: Python 3.12 and [`uv`](https://github.com/astral-sh/uv) for local execution without Docker
 
 ## 1. Local Run (optional)
 ```bash
@@ -36,7 +35,7 @@ docker run --rm -e WANDB_API_KEY=... mlops-project2
 docker run --rm --env-file .env mlops-project2
 ```
 
-The container executes the baked-in command from the Dockerfile: (these are the best Hyperparameters i found in Project1)
+The container executes the baked-in command from the Dockerfile: (these are the best Hyperparameters I found in Project1)
 ```
 uv run main.py --wandb_project MLOPS_Project2 --wandb_run_name Project1_Best_run_recreation_dockerfile \
   --max_epochs 3 --learning_rate 3e-5 --train_batch_size 64 --eval_batch_size 64 --weight_decay 0.0001 \
